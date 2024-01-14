@@ -85,3 +85,26 @@ func TestInvalidGoProgram(t *testing.T) {
 		t.Errorf("Expected invalid program, got valid")
 	}
 }
+
+func TestPrivacyEndpoint(t *testing.T) {
+	req, err := http.NewRequest("GET", "/privacy", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(privacyHandler)
+	handler.ServeHTTP(rr, req)
+
+	expectedContentType := "text/html; charset=utf-8"
+	if contentType := rr.Header().Get("Content-Type"); contentType != expectedContentType {
+		t.Errorf("handler returned wrong content type: got %v want %v",
+			contentType, expectedContentType)
+	}
+
+	expectedBody := "<html><body><p>We do not store any personal data or information from our users.</p></body></html>"
+	if rr.Body.String() != expectedBody {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expectedBody)
+	}
+}

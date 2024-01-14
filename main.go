@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"go/parser"
 	"go/token"
 	"log"
@@ -48,6 +49,10 @@ func checkGoSyntaxHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
+func privacyHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "<html><body><p>We do not store any personal data or information from our users.</p></body></html>")
+}
+
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -55,6 +60,7 @@ func main() {
 		log.Printf("default to port %s", port)
 	}
 
+	http.HandleFunc("/privacy", privacyHandler)
 	http.HandleFunc("/check/gosyntax", checkGoSyntaxHandler)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
