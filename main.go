@@ -50,7 +50,23 @@ func checkGoSyntaxHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func privacyHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "<html><body><p>We do not store any personal data or information from our users.</p></body></html>")
+	htmlContent := `<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Privacy Policy</title>
+	<style>
+		body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+		p { font-size: 1.2em; }
+	</style>
+</head>
+<body>
+	<p>Your privacy is respected here. No personal data is collected or stored.</p>
+</body>
+</html>`
+
+	fmt.Fprintf(w, htmlContent)
 }
 
 func main() {

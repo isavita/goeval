@@ -102,7 +102,22 @@ func TestPrivacyEndpoint(t *testing.T) {
 			contentType, expectedContentType)
 	}
 
-	expectedBody := "<html><body><p>We do not store any personal data or information from our users.</p></body></html>"
+	expectedBody := `<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Privacy Policy</title>
+	<style>
+		body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+		p { font-size: 1.2em; }
+	</style>
+</head>
+<body>
+	<p>Your privacy is respected here. No personal data is collected or stored.</p>
+</body>
+</html>`
+
 	if rr.Body.String() != expectedBody {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expectedBody)
