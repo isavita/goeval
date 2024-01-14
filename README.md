@@ -39,7 +39,8 @@ To check if a Go program has valid syntax, send a POST request with the Go code 
 
 **Example Request:**
 ```bash
-curl -X POST https://your-go-syntax-checker.com/check/gosyntax \
+curl -X POST https://goeval-production.up.railway.app/check/gosyntax \
+-H 'X-Api-Key: XXXXXX' \
 -H "Content-Type: application/json" \
 -d '{"code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"Hello, World!\")\n}"}'
 ```
